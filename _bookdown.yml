@@ -1,0 +1,13 @@
+book_filename: "dispense_pca"
+language:
+  ui:
+    chapter_name: "Capitolo "
+  label:
+    fig: "Figura "
+    tab: 'Tabella '
+    exm: 'Esempio '
+delete_merged_file: true
+output_dir: "docs"
+
+
+

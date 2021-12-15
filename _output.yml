@@ -1,0 +1,26 @@
+bookdown::gitbook:
+  css: book.css
+  config:
+    sharing: null
+    info: no
+    edit : null
+    toc:
+      collapse: section
+      before: |
+        <li><a href="https://istrsetup.netlify.app" target="_blank">PCA SetUp</a></a></li>
+    download: ["pdf"]
+    search: yes
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+    after_body: after.tex
+  latex_engine: pdflatex
+  citation_package: natbib
+  keep_tex: yes
+  toc_appendix: yes
+#bookdown::epub_book: default
+
+
+
+
+

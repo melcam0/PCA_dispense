@@ -1,0 +1,21 @@
+---
+title: "Dispense sull'analisi delle componenti principali"
+subtitle: ""
+author: "Giorgio Marrubini e Camillo Melzi"
+date: ''
+#output: pdf_document
+geometry: "left=2cm, right=2.5cm, top=2.5cm, bottom=2.5cm"
+fontsize: 11pt
+documentclass: book
+bibliography: book.bib
+#csl: bc.csl
+link-citations: yes
+colorlinks: yes
+favicon: Immagini/pca.ico
+cover-image: Immagini/pca.jpg
+site: bookdown::bookdown_site
+---
+
+#  {.unnumbered}
+
+`r if (knitr:::is_html_output()) ' ![](Immagini/pca.jpg) '`
