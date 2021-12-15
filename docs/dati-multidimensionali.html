@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capitolo 1 Dati multidimensionali | Dispense sull’analisi delle componenti principali</title>
+  <meta name="description" content="Capitolo 1 Dati multidimensionali | Dispense sull’analisi delle componenti principali" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capitolo 1 Dati multidimensionali | Dispense sull’analisi delle componenti principali" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="Immagini/pca.jpg" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capitolo 1 Dati multidimensionali | Dispense sull’analisi delle componenti principali" />
+  
+  
+  <meta name="twitter:image" content="Immagini/pca.jpg" />
+
+<meta name="author" content="Giorgio Marrubini e Camillo Melzi" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="Immagini/pca.ico" type="image/x-icon" />
+<link rel="prev" href="index.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="book.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://istrsetup.netlify.app" target="_blank">PCA SetUp</a></a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#section"></a></li>
+<li class="chapter" data-level="1" data-path="dati-multidimensionali.html"><a href="dati-multidimensionali.html"><i class="fa fa-check"></i><b>1</b> Dati multidimensionali</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="dati-multidimensionali.html"><a href="dati-multidimensionali.html#rappresentazione-matriciale-e-geometrica"><i class="fa fa-check"></i><b>1.0.1</b> Rappresentazione matriciale e geometrica</a></li>
+<li class="chapter" data-level="1.0.2" data-path="dati-multidimensionali.html"><a href="dati-multidimensionali.html#trasformazione-delle-variabili-centratura-e-standardizzazione"><i class="fa fa-check"></i><b>1.0.2</b> Trasformazione delle variabili: centratura e standardizzazione</a></li>
+<li class="chapter" data-level="1.0.3" data-path="dati-multidimensionali.html"><a href="dati-multidimensionali.html#matrice-di-covarianza-e-correlazione"><i class="fa fa-check"></i><b>1.0.3</b> Matrice di covarianza e correlazione</a></li>
+<li class="chapter" data-level="1.0.4" data-path="dati-multidimensionali.html"><a href="dati-multidimensionali.html#variabili-latenti-o-componenti-e-proiezioni"><i class="fa fa-check"></i><b>1.0.4</b> Variabili latenti o componenti e proiezioni </a></li>
+<li class="chapter" data-level="1.1" data-path="dati-multidimensionali.html"><a href="dati-multidimensionali.html#analisi-delle-componenti-principali"><i class="fa fa-check"></i><b>1.1</b> Analisi delle componenti principali</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Dispense sull’analisi delle componenti principali</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dati-multidimensionali" class="section level1" number="1">
+<h1><span class="header-section-number">Capitolo 1</span> Dati multidimensionali</h1>
+<div id="rappresentazione-matriciale-e-geometrica" class="section level3" number="1.0.1">
+<h3><span class="header-section-number">1.0.1</span> Rappresentazione matriciale e geometrica</h3>
+<p><img src="dispense_pca_files/figure-html/unnamed-chunk-1-1.png" width="768" /></p>
+</div>
+<div id="trasformazione-delle-variabili-centratura-e-standardizzazione" class="section level3" number="1.0.2">
+<h3><span class="header-section-number">1.0.2</span> Trasformazione delle variabili: centratura e standardizzazione</h3>
+<p>Indichiamo con <span class="math inline">\(\bar{x_1},\dots,\bar{x_p}\)</span> le medie delle variabili <span class="math inline">\(X_1,\dots,X_p\)</span>,
+cioè le <span class="math inline">\(p\)</span> medie delle <span class="math inline">\(p\)</span> colonne della Tabella , e con
+<span class="math inline">\(\sigma_1^2,\dots,\sigma_p^2\)</span> le rispettive varianze.<br />
+Il vettore <span class="math inline">\(\bar{x}=(\bar{x_1},\dots,\bar{x_p})\)</span> viene chiamato <strong>baricentro</strong>.</p>
+<p><strong>Centratura</strong>: semplice traslazione del baricentro nell’origine
+<span class="math display">\[\begin{equation}
+x_{ij}^{&#39;}=x_{ij}-\bar{x_j}
+\end{equation}\]</span></p>
+<ul>
+<li>non perdo informazione sulla distanza tra i punti (la geometria della nuvola di punti
+rimane invariata)</li>
+<li>perdo solo informazione sul baricentro</li>
+<li>semplifica formule e conti (da ora in poi useremo sempre dati centrati)</li>
+</ul>
+<p><strong>Standardizzazione</strong>: questa trasformazione porta ogni variabile ad avere varianza <span class="math inline">\(1\)</span>
+(in generale questa trasformazione viene fatta insieme alla centratura)
+<span class="math display">\[\begin{equation}
+x_{ij}^{&#39;}=\frac{x_{ij}-\bar{x_j}}{\sigma_j}
+\end{equation}\]</span></p>
+<ul>
+<li>questa trasformazione rende le variabili degli scalari (numeri puri)</li>
+<li>questa trasformazione è necessaria quando si vogliono confrontare variabili
+con differenti unità di misura (le variabili devono essere omogenee per essere confrontabili)</li>
+<li>tutte le variabili hanno lo stesso “peso”</li>
+<li>cambia la distanza (la geometria) tra i punti. E’ una dilatazione o contrazione.</li>
+</ul>
+<p>Si veda la seguente figura per una rappresentazione grafica di dati centarti e
+scalati per una matrice di dati di <span class="math inline">\(2\)</span> variabili</p>
+<p><img src="dispense_pca_files/figure-html/unnamed-chunk-2-1.png" width="1152" /></p>
+</div>
+<div id="matrice-di-covarianza-e-correlazione" class="section level3" number="1.0.3">
+<h3><span class="header-section-number">1.0.3</span> Matrice di covarianza e correlazione</h3>
+<p><span class="math display">\[\begin{equation}\label{eq:Corr}
+Cov(X)=\left(
+\begin{array}{cccc}
+\sigma_{11}  &amp; \dots &amp; \sigma_{1p} \\
+\vdots &amp; \quad &amp; \vdots \\
+\sigma_{m1} &amp; \dots &amp; \sigma_{pp} \\
+\end{array}
+\right),
+\end{equation}\]</span>
+dove <span class="math inline">\(\sigma_{ij}=\frac{1}{m-1}\sum_{k=1}^m(x_{ki}-\bar{x_i})(x_{kj}-\bar{x_j})\)</span> è la covarianza tra
+le variabili <span class="math inline">\(X_i\)</span> e <span class="math inline">\(X_j\)</span>,
+e in particolare<br />
+<span class="math inline">\(\sigma_{ii}=\sigma_i^2=\frac{1}{m-1}\sum_{k=1}^m(x_{ki}-\bar{x_i})^2\)</span> è la varianza della variabile
+<span class="math inline">\(X_i\)</span>.<br />
+Nel caso in cui i dati siano centrati <span class="math inline">\(Cov(X)=\frac{1}{m-1}X^tX\)</span></p>
+<p><span class="math display">\[\begin{equation}\label{eq:Corr}
+Cor(X)=\left(
+\begin{array}{cccc}
+1  &amp; \dots &amp; r_{1p} \\
+\vdots &amp; \quad &amp; \vdots \\
+r_{m1} &amp; \dots &amp; 1\\
+\end{array}
+\right),
+\end{equation}\]</span>
+dove <span class="math inline">\(r_{ij}=\frac{\sigma_{ij}}{\sqrt{\sigma_{ii}\sigma_{jj}}}\)</span> è la correlazione tra
+le variabili <span class="math inline">\(X_i\)</span> e <span class="math inline">\(X_j\)</span>.</p>
+<p><img src="dispense_pca_files/figure-html/unnamed-chunk-3-1.png" width="768" /></p>
+<p><img src="dispense_pca_files/figure-html/unnamed-chunk-4-1.png" width="768" /></p>
+</div>
+<div id="variabili-latenti-o-componenti-e-proiezioni" class="section level3" number="1.0.4">
+<h3><span class="header-section-number">1.0.4</span> Variabili latenti o componenti e proiezioni </h3>
+<p>Sia <span class="math inline">\(T\)</span> la combinazione lineare delle variabili <span class="math inline">\(X_1,\dots,X_p\)</span>, ossia il vettore
+(si veda Figura )
+<span class="math display">\[\begin{equation}
+T=b_1X_1+\dots+b_pX_p,
+\end{equation}\]</span>
+dove <span class="math inline">\(b_1^2+\dots+b_p^2=1\)</span>. Il vettore <span class="math inline">\(\bold{b}=(b_1,\dots,b_p)\)</span> è chiamato versore
+e indica la direzione della variabile latente <span class="math inline">\(T\)</span> (si veda Figura ).</p>
+<div class="figure"><span id="fig:unnamed-chunk-5"></span>
+<img src="dispense_pca_files/figure-html/unnamed-chunk-5-1.png" alt="Variabile latente $T$\label{fig:versore}" width="480" />
+<p class="caption">
+Figura 1.1: Variabile latente <span class="math inline">\(T\)</span>
+</p>
+</div>
+<p>Sia <span class="math inline">\(\bold{x}=(x_1,\dots,x_p)\)</span> un generico punto (vettore) di <span class="math inline">\(\mathbf{R^p}\)</span>.
+Chiamiamo proiezione di <span class="math inline">\(\bold{x}\)</span> su <span class="math inline">\(T\)</span> il punto <span class="math inline">\(\bold{x&#39;}\)</span> di <span class="math inline">\(T\)</span> la
+cui distanza da <span class="math inline">\(\bold{x}\)</span> è minima (si veda Figura )</p>
+<div class="figure"><span id="fig:unnamed-chunk-6"></span>
+<img src="dispense_pca_files/figure-html/unnamed-chunk-6-1.png" alt="Proiezione su $T$\label{fig:proiezione}" width="480" />
+<p class="caption">
+Figura 1.2: Proiezione su <span class="math inline">\(T\)</span>
+</p>
+</div>
+<p>Definiamo <em>componente</em> di <strong>x</strong> su T la lunghezza del vettore <span class="math inline">\(\|\bold{x&#39;} \|\)</span> data da
+<span class="math display">\[\begin{equation}
+\|\bold{x&#39;}\|=b_1x_1+\dots+b_px_p.
+\end{equation}\]</span>
+I valori <span class="math inline">\(b_1,\dots,b_p\)</span> sono chiamati <em>loading</em> e la quantità
+<span class="math inline">\(b_1x_1+\dots+b_px_p\)</span> <em>score</em>.</p>
+<p>Si osservi che
+<span class="math display">\[\begin{equation}
+\| \bold{x&#39;} \|=\|\bold{x} \|\cos \theta
+\end{equation}\]</span>
+ossia al prodotto interno (scalare) tra i vettori <span class="math inline">\(\bold{x}\)</span> e <span class="math inline">\(\bold{b}\)</span> (<span class="math inline">\(\| \bold{b}\|=1\)</span>).
+Si veda la Figura .</p>
+<div class="figure"><span id="fig:unnamed-chunk-7"></span>
+<img src="dispense_pca_files/figure-html/unnamed-chunk-7-1.png" alt="Prodotto interno tra **x** e **b** \label{fig:prodinterno}" width="480" />
+<p class="caption">
+Figura 1.3: Prodotto interno tra <strong>x</strong> e <strong>b</strong> 
+</p>
+</div>
+<p>Proiezione degli <span class="math inline">\(m\)</span> individui della matrice <strong>X</strong> sulla variabile latente T
+<span class="math display">\[\begin{equation}
+\left(
+\begin{array}{cccc}
+x_{11}  &amp; \dots &amp; x_{1p} \\
+\vdots &amp; \quad &amp; \vdots \\
+x_{m1} &amp; \dots &amp; x_{mp} \\
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+b_1 \\
+\vdots \\
+b_m \\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cccc}
+b_1x_{11}  + \dots +b_p x_{1p} \\
+\vdots   \\
+b_1x_{m1} + \dots + b_px_{mp} \\
+\end{array}
+\right).
+\end{equation}\]</span></p>
+<p>Supponiamo di prendere una seconda variabile latente
+<span class="math display">\[\begin{equation}
+T&#39;=b&#39;_1X_1+\dots+b&#39;_pX_p, \qquad (b&#39;_1)^2+\dots+(b&#39;_p)^2=1
+\end{equation}\]</span>
+e supponiamo che sia ortogonale a T (i.e <strong>b</strong> e <strong>b’</strong> ortogonali)
+<span class="math display">\[\begin{equation}
+b_1b&#39;_1+\dots+b_pb&#39;_p=0.
+\end{equation}\]</span>
+Si veda la Figura .</p>
+<div class="figure"><span id="fig:unnamed-chunk-8"></span>
+<img src="dispense_pca_files/figure-html/unnamed-chunk-8-1.png" alt="Proiezione sul piano TT' \label{fig:proiezpiano}" width="480" />
+<p class="caption">
+Figura 1.4: Proiezione sul piano TT’ 
+</p>
+</div>
+<p>Proiezione degli <span class="math inline">\(m\)</span> individui della matrice <strong>X</strong> sul piano TT’
+<span class="math display">\[\begin{equation}
+\left(
+\begin{array}{cccc}
+x_{11}  &amp; \dots &amp; x_{1p} \\
+\vdots &amp; \quad &amp; \vdots \\
+x_{m1} &amp; \dots &amp; x_{mp} \\
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+b_1 &amp; b&#39;_1\\
+\vdots &amp; \vdots \\
+b_m &amp; b&#39;_p\\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cccc}
+b_1x_{11}  + \dots +b_p x_{1p} &amp; b&#39;_1x_{11}  + \dots +b&#39;_p x_{1p}\\
+\vdots  &amp; \vdots \\
+b_1x_{m1} + \dots + b_px_{mp} &amp; b&#39;_1x_{m1} + \dots + b&#39;_px_{mp} \\
+\end{array}
+\right).
+\end{equation}\]</span></p>
+<p>E’ possibile iterare questo procedimento fino a p variabili latenti, in questo caso otteniamo
+un cambio di basi (nuove coordinate). Abbiamo semplicemente “cambiato prospettiva” ruotando
+il sistema di coordinate. Si veda la Figura .</p>
+<p>E’ possibile fermarsi prima e proiettare su un
+iperpiano,</p>
+<p>Questo procedimento viene in generale eseguito perchè le variabili latenti
+hanno certe proprietà desiderate.</p>
+<p>Indicando con
+<span class="math display">\[\begin{equation}
+P=
+ \left(
+ \begin{array}{cccc}
+ b^1_1  &amp; b^2_1 &amp; \dots &amp; b^p_1 \\
+ \vdots &amp;\vdots &amp; \quad &amp; \vdots \\
+ b^2_m &amp; b^2_m &amp; \dots &amp; b^p_m \\
+ \end{array}
+ \right) 
+\end{equation}\]</span>
+la matrice dei <em>loading</em>, si ha
+<span class="math display">\[\begin{equation}
+ T=XP
+\end{equation}\]</span>
+e ricordando l’ortonormalità dei vettori <span class="math inline">\(\bold{b}_1,\dots,\bold{b}_p\)</span> (<span class="math inline">\(P^tP=I\)</span>)
+<span class="math display">\[\begin{equation}
+ X=TP^t
+\end{equation}\]</span></p>
+<div class="figure"><span id="fig:unnamed-chunk-9"></span>
+<img src="dispense_pca_files/figure-html/unnamed-chunk-9-1.png" alt="Cambio base da $X_1X_2$ a $T_1T_2$ \label{fig:cambiobase}" width="864" />
+<p class="caption">
+Figura 1.5: Cambio base da <span class="math inline">\(X_1X_2\)</span> a <span class="math inline">\(T_1T_2\)</span> 
+</p>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="dati-multidimensionali.html#cb1-1" aria-hidden="true" tabindex="-1"></a>P<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span>),<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span>),<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span>),<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span>)),<span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb1-2"><a href="dati-multidimensionali.html#cb1-2" aria-hidden="true" tabindex="-1"></a>T<span class="ot">=</span>X<span class="sc">%*%</span>P</span>
+<span id="cb1-3"><a href="dati-multidimensionali.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(T)</span></code></pre></div>
+<pre><code>##            [,1]         [,2]
+## [1,] -0.8819306  0.469438535
+## [2,] -1.1965330 -1.084705155
+## [3,]  0.8871902  0.024327783
+## [4,] -1.0638267  0.008888563
+## [5,] -1.3798502 -0.102959280
+## [6,] -1.3998573 -0.164815934</code></pre>
+</div>
+<div id="analisi-delle-componenti-principali" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Analisi delle componenti principali</h2>
+<p>Vogliamo costruire le variabili latenti <span class="math inline">\(T_1,\dots,T_p\)</span> in modo da massimalizzare la distanza
+tra gli <span class="math inline">\(m\)</span> oggetti in <span class="math inline">\(\mathbb{R}^p\)</span>, le cui coordinate sono date dalla matrice <span class="math inline">\(X\)</span> (cf. ),
+nel senso che punti lontani in <span class="math inline">\(\mathbb{R}^p\)</span> siano il più
+lontano possibile nelle proiezioni su <span class="math inline">\(T_1\)</span>, poi <span class="math inline">\(T_2\)</span>,……
+La distanza tra i punti può essere misurata usando il teorema di Pitagora, distanza euclidea,
+e questa è la formula della varianza delle variabili <span class="math inline">\(X_1,\dots,X_p\)</span>.<br />
+Vogliamo massimalizzare la varianza, perchè ad essa è associata l’informazione contenuta nei dati
+in esame.
+In definitiva vogliamo massimalizzare l’informazione ricavabile dagli oggetti in esama (varianza).</p>
+<p>E’ posssibile determinare una variabile latente <span class="math inline">\(T_1\)</span>, che chiameremo <em>Prima Componente Principale</em>,
+in modo tale che</p>
+<p><span class="math display">\[\begin{equation}
+Var (T_1)=\rm{Max}_{\it{T}}\it{Var(T)}
+\end{equation}\]</span>
+al variare di tutte le direzioni possibili <span class="math inline">\(T\)</span> in <span class="math inline">\(\mathbb{R}^p\)</span>.<br />
+Tra tutte le variabili latenti perpendicolari alla <span class="math inline">\(T_1\)</span> è possibile determinare una seconda
+variabile latente <span class="math inline">\(T_2\)</span>, che chiameremo <em>Seconda Componente Principale</em> in modo tale che</p>
+<p><span class="math display">\[\begin{equation}
+Var (T_2)=\rm{Max}_{\it{T\perp T_1}}\it{Var(T)}
+\end{equation}\]</span></p>
+<p>Questo procedimento può essere iterato fino alla costruzione di <span class="math inline">\(p\)</span> componenti principali
+<span class="math inline">\(T_1,T_2,\dots,T_p\)</span>.</p>
+<p>Per quanto visto nel Paragrafo  abbiamo determinato la matrice <span class="math inline">\(P\)</span>
+dei <em>loading</em>. La matrice degli <em>score</em> si ottiene
+<span class="math display">\[\begin{equation}\label{eq:Score}
+T=XP
+\end{equation}\]</span></p>
+<p>La procedura per determinare <span class="math inline">\(P\)</span> passa attraverso il calcolo degli autovalori
+<span class="math inline">\(\lambda_1,\dots,\lambda_p\)</span> della matrice di covarianza (di correlazione nel caso in cui i dati
+fossero stati standardizzati)
+<span class="math display">\[\begin{equation}
+Cov(X)=X^tX
+\end{equation}\]</span></p>
+<p>e dei relativi autovettori (le <span class="math inline">\(p\)</span> componenti principali).</p>
+<p>Uno dei risultati principali di questa costruzione è che nel sistema di coordinate delle componenti principali</p>
+<p><span class="math display">\[\begin{equation}\label{eq:Corr}
+Cov(T)=\left(
+\begin{array}{cccc}
+\lambda_1  &amp; \dots &amp; 0 \\
+\vdots &amp; \quad &amp; \vdots \\
+0 &amp; \dots &amp; \lambda_m \\
+\end{array}
+\right),
+\quad \lambda_1 \geq \lambda_2 \geq \dots \geq \lambda_m
+\end{equation}\]</span></p>
+<p>Conseguenze</p>
+<ul>
+<li><span class="math inline">\(Var(T_i)=\lambda_i\)</span><br />
+</li>
+<li>varianza totale: <span class="math inline">\(\lambda_1+\dots+\lambda_p\)</span><br />
+</li>
+<li>le componenti <span class="math inline">\(T_1,T_2,\dots,T_p\)</span> sono a indipendenti</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["dispense_pca.pdf"],
+"toc": {
+"collapse": "section"
+},
+"info": false,
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
