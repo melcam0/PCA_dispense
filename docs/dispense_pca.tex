@@ -134,6 +134,54 @@ m & $x_{m1}$ & $x_{m2}$ & $\dots$ & $x_{mp}$ \\
 
 \includegraphics{dispense_pca_files/figure-latex/unnamed-chunk-1-1.pdf}
 
+\hypertarget{trasformazione-delle-variabili-centratura-e-standardizzazione}{%
+\section{Trasformazione delle variabili: centratura e standardizzazione}\label{trasformazione-delle-variabili-centratura-e-standardizzazione}}
+
+Indichiamo con \(\bar{x_1},\dots,\bar{x_p}\) le medie delle variabili \(X_1,\dots,X_p\),
+cioè le \(p\) medie delle \(p\) colonne della Tabella \ref{tab:RegrMult}, e con
+\(\sigma_1^2,\dots,\sigma_p^2\) le rispettive varianze.\\
+Il vettore \(\bar{x}=(\bar{x_1},\dots,\bar{x_p})\) viene chiamato \textbf{baricentro}.
+
+\textbf{Centratura}: semplice traslazione del baricentro nell'origine
+\begin{equation}
+x_{ij}^{'}=x_{ij}-\bar{x_j}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  non perdo informazione sulla distanza tra i punti (la geometria della nuvola di punti
+  rimane invariata)
+\item
+  perdo solo informazione sul baricentro
+\item
+  semplifica formule e conti (da ora in poi useremo sempre dati centrati)
+\end{itemize}
+
+\textbf{Standardizzazione}: questa trasformazione porta ogni variabile ad avere varianza \(1\)
+(in generale questa trasformazione viene fatta insieme alla centratura)
+\begin{equation}
+x_{ij}^{'}=\frac{x_{ij}-\bar{x_j}}{\sigma_j}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  questa trasformazione rende le variabili degli scalari (numeri puri)
+\item
+  questa trasformazione è necessaria quando si vogliono confrontare variabili
+  con differenti unità di misura (le variabili devono essere omogenee per essere confrontabili)
+\item
+  tutte le variabili hanno lo stesso ``peso''
+\item
+  cambia la distanza (la geometria) tra i punti. E' una dilatazione o contrazione.
+\end{itemize}
+
+Si veda la seguente figura per una rappresentazione grafica di dati centarti e
+scalati per una matrice di dati di \(2\) variabili
+
+\includegraphics{dispense_pca_files/figure-latex/unnamed-chunk-2-1.pdf}
+
   \bibliography{book.bib}
 
 \addcontentsline{toc}{chapter}{Bibliografia}

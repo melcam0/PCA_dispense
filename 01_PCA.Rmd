@@ -49,6 +49,74 @@ text(x = -0.5,y = 5,labels=expression(X[2]),font=1)
 text(x = 0,y = -0.5,labels=expression(0),font=1)
 ```
 
+## Trasformazione delle variabili: centratura e standardizzazione
+ 
+Indichiamo con $\bar{x_1},\dots,\bar{x_p}$ le medie delle variabili $X_1,\dots,X_p$,
+cioè le $p$ medie delle $p$ colonne della Tabella \ref{tab:RegrMult}, e con
+$\sigma_1^2,\dots,\sigma_p^2$ le rispettive varianze.  
+Il vettore $\bar{x}=(\bar{x_1},\dots,\bar{x_p})$ viene chiamato **baricentro**.
+ 
+**Centratura**: semplice traslazione del baricentro nell'origine
+\begin{equation}
+x_{ij}^{'}=x_{ij}-\bar{x_j}
+\end{equation}
+  
+  - non perdo informazione sulla distanza tra i punti (la geometria della nuvola di punti
+   rimane invariata)
+  - perdo solo informazione sul baricentro
+  - semplifica formule e conti (da ora in poi useremo sempre dati centrati)
+  
+**Standardizzazione**: questa trasformazione porta ogni variabile ad avere varianza $1$
+(in generale questa trasformazione viene fatta insieme alla centratura)
+\begin{equation}
+x_{ij}^{'}=\frac{x_{ij}-\bar{x_j}}{\sigma_j}
+\end{equation}
+  
+ - questa trasformazione rende le variabili degli scalari (numeri puri)
+ - questa trasformazione è necessaria quando si vogliono confrontare variabili
+ con differenti unità di misura (le variabili devono essere omogenee per essere confrontabili)
+ - tutte le variabili hanno lo stesso "peso"
+ - cambia la distanza (la geometria) tra i punti. E' una dilatazione o contrazione.
+     
+Si veda la seguente figura per una rappresentazione grafica di dati centarti e
+scalati per una matrice di dati di $2$ variabili
+
+```{r,fig.width=12, fig.height=11, echo=FALSE}
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+
+plot(iris[,1:2],fg="white",col.lab="white",col.axis="white",xlim=c(-1,10),ylim=c(-1,6),
+     asp=1)
+arrows(x0 = 0,y0 = 0,x1 = 10,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 10,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = 0,x1 = 0,y1 = 5,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 5,labels=expression(X[2]),font=1)
+text(x = 0,y = -0.5,labels=expression(0),font=1)
+text(x=5,y=-1,labels="Dati originali")
+
+plot(scale(iris[,1:2],center = TRUE,scale = FALSE),fg="white",col.lab="white",
+     col.axis="white",xlim=c(-3.5,3),ylim=c(-1,2),asp=1)
+arrows(x0 = -2.5,y0 = 0,x1 = 3,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 3,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = -1.5,x1 = 0,y1 = 2,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 2,labels=expression(X[2]),font=1)
+text(x=1.5,y=-2,labels="Dati centrati")
+
+plot(scale(iris[,1:2],center = TRUE,scale = TRUE),fg="white",col.lab="white",
+     col.axis="white",xlim=c(-3.5,3),ylim=c(-1,2),asp=1)
+arrows(x0 = -2.5,y0 = 0,x1 = 3,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 3,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = -1.5,x1 = 0,y1 = 2,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 2,labels=expression(X[2]),font=1)
+text(x=2,y=-2,labels="Dati centrati e scalati")
+```
+
+
+
+
+
+
+
+
 
 
 

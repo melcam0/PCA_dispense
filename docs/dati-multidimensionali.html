@@ -73,6 +73,7 @@
 <li class="chapter" data-level="1" data-path="dati-multidimensionali.html"><a href="dati-multidimensionali.html"><i class="fa fa-check"></i><b>1</b> Dati multidimensionali</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="dati-multidimensionali.html"><a href="dati-multidimensionali.html#rappresentazione-matriciale-e-geometrica"><i class="fa fa-check"></i><b>1.1</b> Rappresentazione matriciale e geometrica</a></li>
+<li class="chapter" data-level="1.2" data-path="dati-multidimensionali.html"><a href="dati-multidimensionali.html#trasformazione-delle-variabili-centratura-e-standardizzazione"><i class="fa fa-check"></i><b>1.2</b> Trasformazione delle variabili: centratura e standardizzazione</a></li>
 </ul></li>
 </ul>
 
@@ -96,6 +97,38 @@
 <div id="rappresentazione-matriciale-e-geometrica" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Rappresentazione matriciale e geometrica</h2>
 <p><img src="dispense_pca_files/figure-html/unnamed-chunk-1-1.png" width="768" /></p>
+</div>
+<div id="trasformazione-delle-variabili-centratura-e-standardizzazione" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Trasformazione delle variabili: centratura e standardizzazione</h2>
+<p>Indichiamo con <span class="math inline">\(\bar{x_1},\dots,\bar{x_p}\)</span> le medie delle variabili <span class="math inline">\(X_1,\dots,X_p\)</span>,
+cioè le <span class="math inline">\(p\)</span> medie delle <span class="math inline">\(p\)</span> colonne della Tabella , e con
+<span class="math inline">\(\sigma_1^2,\dots,\sigma_p^2\)</span> le rispettive varianze.<br />
+Il vettore <span class="math inline">\(\bar{x}=(\bar{x_1},\dots,\bar{x_p})\)</span> viene chiamato <strong>baricentro</strong>.</p>
+<p><strong>Centratura</strong>: semplice traslazione del baricentro nell’origine
+<span class="math display">\[\begin{equation}
+x_{ij}^{&#39;}=x_{ij}-\bar{x_j}
+\end{equation}\]</span></p>
+<ul>
+<li>non perdo informazione sulla distanza tra i punti (la geometria della nuvola di punti
+rimane invariata)</li>
+<li>perdo solo informazione sul baricentro</li>
+<li>semplifica formule e conti (da ora in poi useremo sempre dati centrati)</li>
+</ul>
+<p><strong>Standardizzazione</strong>: questa trasformazione porta ogni variabile ad avere varianza <span class="math inline">\(1\)</span>
+(in generale questa trasformazione viene fatta insieme alla centratura)
+<span class="math display">\[\begin{equation}
+x_{ij}^{&#39;}=\frac{x_{ij}-\bar{x_j}}{\sigma_j}
+\end{equation}\]</span></p>
+<ul>
+<li>questa trasformazione rende le variabili degli scalari (numeri puri)</li>
+<li>questa trasformazione è necessaria quando si vogliono confrontare variabili
+con differenti unità di misura (le variabili devono essere omogenee per essere confrontabili)</li>
+<li>tutte le variabili hanno lo stesso “peso”</li>
+<li>cambia la distanza (la geometria) tra i punti. E’ una dilatazione o contrazione.</li>
+</ul>
+<p>Si veda la seguente figura per una rappresentazione grafica di dati centarti e
+scalati per una matrice di dati di <span class="math inline">\(2\)</span> variabili</p>
+<p><img src="dispense_pca_files/figure-html/unnamed-chunk-2-1.png" width="1152" /></p>
 
 </div>
 </div>
@@ -145,6 +178,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
