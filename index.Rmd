@@ -1,6 +1,6 @@
 ---
 title: "Dispense sull'analisi delle componenti principali"
-subtitle: ""
+subtitle: "Principal Component Analysis, PCA"
 author: "Giorgio Marrubini e Camillo Melzi"
 date: ''
 #output: pdf_document

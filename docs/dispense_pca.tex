@@ -7,6 +7,13 @@
   11pt,
 ]{book}
 \title{Dispense sull'analisi delle componenti principali}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Principal Component Analysis, PCA}
 \author{Giorgio Marrubini e Camillo Melzi}
 \date{}
 
