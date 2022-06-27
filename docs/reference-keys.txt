@@ -1,0 +1,5 @@
+dati-multidimensionali
+rappresentazione-matriciale-e-geometrica
+trasformazione-delle-variabili-centratura-e-standardizzazione
+matrice-di-covarianza-e-correlazione
+variabili-latenti-o-componenti-e-proiezioni

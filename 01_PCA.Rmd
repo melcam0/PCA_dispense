@@ -4,26 +4,16 @@
 
 ## Rappresentazione matriciale e geometrica
 
-  
- 
-\begin{table}[h]
-\caption{Rappresentazione matriciale}
-\label{tab:RegrMult}
-\ 
-\begin{center}
-\begin{tabular}{rrrrrr}
-\hline
-Indiv. & $X_1$ & $X_2$ & $\dots$ & $X_p$ \\
-\hline
-1 & $x_{11}$ & $x_{12}$ & $\dots$ & $x_{1p}$\\
-2 & $x_{21}$ & $x_{22}$ & $\dots$ & $x_{2p}$ \\
-...\\
-m & $x_{m1}$ & $x_{m2}$ & $\dots$ & $x_{mp}$ \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
- 
+| Indiv |$X_1$   |$X_2$   |$\cdots$ |$X_p$   |
+|:-----:|:------:|:------:|:-------:|:------:|
+|  1    |$x_{11}$|$x_{12}$|$\cdots$ |$x_{m1}$|
+|  2    |$x_{21}$|$x_{22}$|$\cdots$ |$x_{2p}$|
+|  .    |        |        |         |        |
+|  m    |$x_{1m}$|$x_{m2}$|$\cdots$ |$x_{mp}$|
+
+: (\#tab:RegrMult) Rappresentazione matriciale
+
+
 
 ```{r,fig.width=8, fig.height=4, echo=FALSE}
 par(mfrow=c(1,2))
@@ -110,7 +100,449 @@ text(x = -0.5,y = 2,labels=expression(X[2]),font=1)
 text(x=2,y=-2,labels="Dati centrati e scalati")
 ```
 
+## Matrice di covarianza e correlazione
 
+\begin{equation}\label{eq:Cov}
+Cov(X)=\left(
+\begin{array}{cccc}
+\sigma_{11}  & \dots & \sigma_{1p} \\
+\vdots & \quad & \vdots \\
+\sigma_{m1} & \dots & \sigma_{pp} \\
+\end{array}
+\right),
+\end{equation}
+dove $\sigma_{ij}=\frac{1}{m-1}\sum_{k=1}^m(x_{ki}-\bar{x_i})(x_{kj}-\bar{x_j})$ è la covarianza tra
+le variabili $X_i$ e $X_j$,
+e in particolare   
+$\sigma_{ii}=\sigma_i^2=\frac{1}{m-1}\sum_{k=1}^m(x_{ki}-\bar{x_i})^2$ è la varianza della variabile
+$X_i$.  
+Nel caso in cui i dati siano centrati $Cov(X)=\frac{1}{m-1}X^tX$
+
+ 
+\begin{equation}\label{eq:Corr}
+Cor(X)=\left(
+\begin{array}{cccc}
+1  & \dots & r_{1p} \\
+\vdots & \quad & \vdots \\
+r_{m1} & \dots & 1\\
+\end{array}
+\right),
+\end{equation}
+
+dove $r_{ij}=\frac{\sigma_{ij}}{\sqrt{\sigma_{ii}\sigma_{jj}}}$ è la correlazione tra
+le variabili $X_i$ e $X_j$.
+
+```{r,fig.width=8, fig.height=4, echo=FALSE}
+library(mvtnorm)
+set.seed(12345)
+sigma=matrix(c(5,0,0,1),ncol=2)
+X=rmvnorm(200,mean=c(0,0),sigma=sigma)
+
+par(mfrow=c(1,2))
+
+plot(X,fg="white",col.lab="white",col.axis="white",xlim=c(-8,8),ylim=c(-5,5),
+     asp=1,cex=0.5)
+arrows(x0 = -8,y0 = 0,x1 = 8,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 8,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = -5,x1 = 0,y1 = 5,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 5,labels=expression(X[2]),font=1)
+text(x = 0,y = -0.5,labels=expression(0),font=1)
+text(x=-5,y=-4.5,labels = expression(Cov(X)==bgroup("(",paste(atop(5,0)," ",atop(0,1)),")")),
+     cex=0.7)
+text(x=5,y=-4.5,labels = expression(Cor(X)==bgroup("(",paste(atop(1,0)," ",atop(0,1)),")")),
+     cex=0.7)
+
+
+plot(scale(X),fg="white",col.lab="white",col.axis="white",xlim=c(-8,8),ylim=c(-5,5),
+     asp=1,cex=0.5)
+arrows(x0 = -8,y0 = 0,x1 = 8,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 8,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = -5,x1 = 0,y1 = 5,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 5,labels=expression(X[2]),font=1)
+text(x = 0,y = -0.5,labels=expression(0),font=1)
+text(x=-5,y=-4.5,labels = expression(Cov(X)==bgroup("(",paste(atop(1,0)," ",atop(0,1)),")")),
+     cex=0.7)
+text(x=5,y=-4.5,labels = expression(Cor(X)==bgroup("(",paste(atop(1,0)," ",atop(0,1)),")")),
+     cex=0.7)
+```
+
+
+```{r,fig.width=8, fig.height=4, echo=FALSE}
+sigma=matrix(c(5,1.79,1.79,1),ncol=2)
+X=rmvnorm(200,mean=c(0,0),sigma=sigma)
+
+par(mfrow=c(1,2))
+
+plot(X,fg="white",col.lab="white",col.axis="white",xlim=c(-8,8),ylim=c(-5,5),
+     asp=1)
+arrows(x0 = -8,y0 = 0,x1 = 8,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 8,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = -5,x1 = 0,y1 = 5,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 5,labels=expression(X[2]),font=1)
+text(x = 0,y = -0.5,labels=expression(0),font=1)
+text(x=5,y=-4.5,labels = expression(Cor(X)==bgroup("(",paste(atop(1,0.8)," ",atop(0.8,1)),")")),
+     cex=0.7)
+text(x=-5,y=-4.5,labels = expression(Cov(X)==bgroup("(",paste(atop(5,1.79)," ",atop(1.79,1)),")")),
+     cex=0.7)
+
+
+
+plot(scale(X),fg="white",col.lab="white",col.axis="white",xlim=c(-8,8),ylim=c(-5,5),
+     asp=1)
+arrows(x0 = -8,y0 = 0,x1 = 8,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 8,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = -5,x1 = 0,y1 = 5,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 5,labels=expression(X[2]),font=1)
+text(x = 0,y = -0.5,labels=expression(0),font=1)
+text(x=-5,y=-4.5,labels = expression(Cov(X)==bgroup("(",paste(atop(1,0.8)," ",atop(0.8,1)),")")),
+     cex=0.7)
+text(x=5,y=-4.5,labels = expression(Cor(X)==bgroup("(",paste(atop(1,0.8)," ",atop(0.8,1)),")")),
+     cex=0.7)
+```
+
+## Variabili latenti o componenti e proiezioni \label{par:VariabiliLatenti}
+ 
+Sia $T$ la combinazione lineare delle variabili $X_1,\dots,X_p$, ossia il vettore
+(si veda Figura \ref{fig:versore})
+\begin{equation}
+T=b_1X_1+\dots+b_pX_p,
+\end{equation}
+dove $b_1^2+\dots+b_p^2=1$. Il vettore $\textbf{b}=(b_1,\dots,b_p)$ è chiamato versore
+e indica la direzione della variabile latente $T$ (si veda Figura \ref{fig:versore}).
+
+
+```{r,fig.width=5, fig.height=4,fig.cap="Variabile latente $T$\\label{fig:versore}" ,echo=FALSE}
+plot(NULL,fg="white",col.lab="white",col.axis="white",xlim=c(-1,10),ylim=c(-1,6),
+     asp=1)
+arrows(x0 = 0,y0 = 0,x1 = 10,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 10,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = 0,x1 = 0,y1 = 5,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 5,labels=expression(X[2]),font=1)
+text(x = 0,y = -0.5,labels=expression(0),font=1)
+abline(a = 0,b = 1)
+arrows(x0 = 0,y0 = 0,x1 = 1/sqrt(2),y1 = 1/sqrt(2),length = 0.15, angle = 10,lwd=2,
+       col="blue")
+text(x = 1.7,y =  1/sqrt(2)-0.1,labels=expression(group("(",list(b[1],b[2]),")")),font=1,
+     cex=0.8,col="blue")
+text(x = 7,y = 5,labels = expression(T==b[1]*X[1]+b[2]*X[2]),cex=0.8)
+
+```
+
+
+   
+Sia $\textbf{x}=(x_1,\dots,x_p)$ un generico punto (vettore) di $\mathbf{R^p}$.
+Chiamiamo proiezione di $\textbf{x}$ su $T$ il punto $\textbf{x'}$ di $T$ la 
+cui distanza da $\textbf{x}$ è minima (si veda Figura \ref{fig:proiezione})
+
+
+```{r,fig.width=5, fig.height=4,fig.cap="Proiezione su $T$\\label{fig:proiezione}",echo=FALSE}
+plot(x=2,y=4,fg="white",col.lab="white",col.axis="white",xlim=c(-1,10),ylim=c(-1,6),
+     asp=1)
+arrows(x0 = 0,y0 = 0,x1 = 10,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 10,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = 0,x1 = 0,y1 = 5,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 5,labels=expression(X[2]),font=1)
+text(x = 0,y = -0.5,labels=expression(0),font=1)
+abline(a = 0,b = 1)
+arrows(x0 = 0,y0 = 0,x1 = 1/sqrt(2),y1 = 1/sqrt(2),length = 0.15, angle = 10,lwd=2,
+       col="blue")
+text(x = 1.7,y =  1/sqrt(2)-0.1,labels=expression(group("(",list(b[1],b[2]),")")),font=1,
+     cex=0.8,col="blue")
+text(x = 7,y = 5,labels = expression(T==b[1]*X[1]+b[2]*X[2]),cex=0.8)
+text(x = 1.5,y = 4.5,labels = "x",cex=0.8,font=2)
+text(x = 3.5,y = 2.5,labels = "x'",cex=0.8,font=2)
+segments(x0 = 3,y0 = 3,x1 = 2,y1 = 4,lty = 2)
+par(new=TRUE)
+plot(x=3,y=3,fg="white",col.lab="white",col.axis="white",xlim=c(-1,10),ylim=c(-1,6),asp=1,
+     pch=20,col="red")
+```
+
+
+
+
+Definiamo *componente* di **x** su T la lunghezza del vettore $\|\textbf{x'} \|$ data da
+\begin{equation}
+\|\textbf{x'}\|=b_1x_1+\dots+b_px_p.
+\end{equation}
+I valori $b_1,\dots,b_p$ sono chiamati *loading*  e la quantità
+$b_1x_1+\dots+b_px_p$ *score*.  
+ 
+Si osservi che 
+\begin{equation}
+\| \textbf{x'} \|=\|\textbf{x} \|\cos \theta
+\end{equation}
+ossia al prodotto interno (scalare) tra i vettori $\textbf{x}$ e $\textbf{b}$ ($\| \textbf{b}\|=1$).
+Si veda la Figura \ref{fig:prodinterno}.
+
+```{r,fig.width=5, fig.height=4,echo=FALSE, fig.cap="Prodotto interno tra **x** e **b** \\label{fig:prodinterno}"}
+plot(x=2,y=4,fg="white",col.lab="white",col.axis="white",xlim=c(-1,10),ylim=c(-1,6),
+     asp=1)
+text(x = 0,y = -0.5,labels=expression(0),font=1)
+abline(a = 0,b = 1)
+arrows(x0 = 0,y0 = 0,x1 = 1/sqrt(2),y1 = 1/sqrt(2),length = 0.15, angle = 10,lwd=2,
+       col="blue")
+text(x = 1.5,y =  1/sqrt(2)-0.1,labels="b",font=2,
+     cex=0.8,col="blue")
+text(x = 1.5,y = 4.5,labels = "x",cex=0.8,font=2)
+text(x = 3.5,y = 2.5,labels = "x'",cex=0.8,font=2)
+segments(x0 = 3,y0 = 3,x1 = 2,y1 = 4,lty = 1)
+par(new=TRUE)
+plot(x=3,y=3,fg="white",col.lab="white",col.axis="white",xlim=c(-1,10),ylim=c(-1,6),asp=1,
+     pch=20,col="red")
+arrows(x0 = 0,y0 = 0,x1 = 2,y1 = 4,length = 0.15, angle = 10,lwd=2,
+       col="blue")
+text(x = 1,y =1.3 ,labels = expression(theta),cex=0.8)
+```
+
+
+
+Proiezione degli $m$ individui della matrice **X** sulla variabile latente T
+\begin{equation}
+\left(
+\begin{array}{cccc}
+x_{11}  & \dots & x_{1p} \\
+\vdots & \quad & \vdots \\
+x_{m1} & \dots & x_{mp} \\
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+b_1 \\
+\vdots \\
+b_m \\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cccc}
+b_1x_{11}  + \dots +b_p x_{1p} \\
+\vdots   \\
+b_1x_{m1} + \dots + b_px_{mp} \\
+\end{array}
+\right).
+\end{equation}
+   
+Supponiamo di prendere una seconda variabile latente
+\begin{equation}
+T'=b'_1X_1+\dots+b'_pX_p, \qquad (b'_1)^2+\dots+(b'_p)^2=1
+\end{equation}
+e supponiamo che sia ortogonale a T (i.e **b** e **b'** ortogonali)
+\begin{equation}
+b_1b'_1+\dots+b_pb'_p=0.
+\end{equation}
+Si veda la Figura \ref{fig:proiezpiano}.
+
+
+```{r,fig.width=5, fig.height=4,echo=FALSE, fig.cap="Proiezione sul piano TT' \\label{fig:proiezpiano}"}
+plot(x=2,y=4,fg="white",col.lab="white",col.axis="white",xlim=c(-2,10),ylim=c(-1,6),
+     asp=1)
+arrows(x0 = -5,y0 = 0,x1 = 10,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 10,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = -3,x1 = 0,y1 = 5,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 5,labels=expression(X[2]),font=1)
+#text(x = 0,y = -0.5,labels=expression(0),font=1)
+abline(a = 0,b = 1,col="blue")
+arrows(x0 = 0,y0 = 0,x1 = 1/sqrt(2),y1 = 1/sqrt(2),length = 0.15, angle = 10,lwd=2,
+       col="blue")
+text(x = 1.7,y =  1/sqrt(2)-0.1,labels=expression(group("(",list(b[1],b[2]),")")),font=1,
+     cex=0.8,col="blue")
+abline(a = 0,b = -1, col="blue")
+arrows(x0 = 0,y0 = 0,x1 = -1/sqrt(2),y1 = 1/sqrt(2),length = 0.15, angle = 10,lwd=2,
+       col="blue")
+text(x =- 1.7,y =  1/sqrt(2)-0.1,labels=expression(group("(",list("b'"[1],"b'"[2]),")")),font=1,
+     cex=0.8,col="blue")
+#text(x = 7,y = 5,labels = expression(T==b[1]*X[1]+b[2]*X[2]),cex=0.8)
+text(x = 1.5,y = 4.5,labels = "x",cex=0.8,font=2)
+text(x = 3.5,y = 2.5,labels = "x'",cex=0.8,font=2)
+text(x = -1,y = 1.5,labels = "x''",cex=0.8,font=2)
+segments(x0 = 3,y0 = 3,x1 = 2,y1 = 4,lty = 2)
+segments(x0 = -1,y0 = 1,x1 = 2,y1 = 4,lty = 2)
+par(new=TRUE)
+plot(x=3,y=3,fg="white",col.lab="white",col.axis="white",xlim=c(-2,10),ylim=c(-1,6),asp=1,
+     pch=20,col="red")
+par(new=TRUE)
+plot(x=-1,y=1,fg="white",col.lab="white",col.axis="white",xlim=c(-2,10),ylim=c(-1,6),asp=1,
+     pch=20,col="red")
+```
+
+
+   
+Proiezione degli $m$ individui della matrice **X** sul piano TT'
+\begin{equation}
+\left(
+\begin{array}{cccc}
+x_{11}  & \dots & x_{1p} \\
+\vdots & \quad & \vdots \\
+x_{m1} & \dots & x_{mp} \\
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+b_1 & b'_1\\
+\vdots & \vdots \\
+b_m & b'_p\\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cccc}
+b_1x_{11}  + \dots +b_p x_{1p} & b'_1x_{11}  + \dots +b'_p x_{1p}\\
+\vdots  & \vdots \\
+b_1x_{m1} + \dots + b_px_{mp} & b'_1x_{m1} + \dots + b'_px_{mp} \\
+\end{array}
+\right).
+\end{equation}
+   
+   
+E' possibile iterare questo procedimento fino a p variabili latenti, in questo caso otteniamo
+un cambio di basi (nuove coordinate). Abbiamo semplicemente "cambiato prospettiva" ruotando
+il sistema di coordinate. Si veda la Figura \ref{fig:cambiobase}.
+ 
+ 
+E' possibile fermarsi prima e proiettare su un 
+iperpiano,
+   
+Questo procedimento viene in generale eseguito perchè le variabili latenti
+hanno certe proprietà desiderate.
+ 
+   
+Indicando con
+\begin{equation}
+P=
+ \left(
+ \begin{array}{cccc}
+ b^1_1  & b^2_1 & \dots & b^p_1 \\
+ \vdots &\vdots & \quad & \vdots \\
+ b^2_m & b^2_m & \dots & b^p_m \\
+ \end{array}
+ \right) 
+\end{equation}
+la matrice dei *loading*, si ha
+\begin{equation}
+ T=XP
+\end{equation}
+e ricordando l'ortonormalità dei vettori $\textbf{b}_1,\dots,\textbf{b}_p$ ($P^tP=I$)
+\begin{equation}
+ X=TP^t
+\end{equation}
+
+
+```{r,fig.width=9, fig.height=4,echo=FALSE, fig.cap="Cambio base da $X_1X_2$ a $T_1T_2$ \\label{fig:cambiobase}"}
+library(mvtnorm)
+sigma=matrix(c(1,0.8,0.8,1),ncol=2)
+set.seed(1234)
+X=rmvnorm(200,mean=c(0,0),sigma=sigma)
+
+par(mfrow=c(1,2))
+
+plot(X,fg="white",col.lab="white",col.axis="white",xlim=c(-6.5,6),ylim=c(-4,4),
+     asp=1,col="grey30")
+arrows(x0 = -5.5,y0 = 0,x1 = 6 ,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 6,y = -0.5,labels=expression(X[1]),font=1)
+arrows(x0 = 0,y0 = -4,x1 = 0,y1 = 4,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 4,labels=expression(X[2]),font=1)
+#text(x = 0,y = -0.5,labels=expression(0),font=1)
+abline(a = 0,b = 1,col="blue",lty=2)
+arrows(x0 = 0,y0 = 0,x1 = 1/sqrt(2),y1 = 1/sqrt(2),length = 0.15, angle = 10,lwd=2,
+       col="blue")
+text(x = 1.7,y =  1/sqrt(2)-0.1,labels=expression(b^1),font=2,
+     cex=0.8,col="blue")
+abline(a = 0,b = -1, col="blue",lty=2)
+arrows(x0 = 0,y0 = 0,x1 = -1/sqrt(2),y1 = 1/sqrt(2),length = 0.15, angle = 10,lwd=2,
+       col="blue")
+text(x =- 1.7,y =  1/sqrt(2)-0.1,labels=expression(b^2),font=2,
+     cex=0.8,col="blue")
+text(x = 5,y = 3,labels = expression(T[1]),col="blue")
+text(x = 5,y = 3,labels = expression(T[1]),col="blue")
+text(x = -5.5,y = 3,labels = expression(T[2]),col="blue")
+text(x=4,y=-1.5,labels = expression(Cov(X)==bgroup("(",paste(atop(1,0.8)," ",atop(0.8,1)),")")),
+     cex=0.7)
+
+P=matrix(c(1/sqrt(2),1/sqrt(2),-1/sqrt(2),1/sqrt(2)),ncol=2)
+T=X%*%P
+
+plot(T,fg="white",col.lab="white",col.axis="white",xlim=c(-6.5,6),ylim=c(-4,4),
+     asp=1,col="grey30")
+arrows(x0 = -5.5,y0 = 0,x1 = 6 ,y1 = 0,length = 0.20, angle = 15,lwd=1)
+text(x = 6,y = -0.5,labels=expression(T[1]),font=1)
+arrows(x0 = 0,y0 = -4,x1 = 0,y1 = 4,length = 0.20, angle = 15,lwd=1)
+text(x = -0.5,y = 4,labels=expression(T[2]),font=1)
+text(x=-4,y=-3,labels = expression(Cov(T)==bgroup("(",paste(atop(2.03,0.01),"  ",atop(0.01,0.18)),")")),
+     cex=0.7)
+text(x=4,y=-3,labels = expression(Cor(T)==bgroup("(",paste(atop(1,0.02),"  ",atop(0.02,1)),")")),
+     cex=0.7)
+```
+
+
+```{r}
+P=matrix(c(1/sqrt(2),1/sqrt(2),-1/sqrt(2),1/sqrt(2)),ncol=2)
+T=X%*%P
+head(T)
+```
+
+
+# Analisi delle componenti principali
+ 
+Vogliamo costruire le variabili latenti $T_1,\dots,T_p$ in modo da massimalizzare la distanza 
+tra gli $m$ oggetti in $\mathbb{R}^p$, le cui coordinate sono date dalla matrice $X$ (cf. ), 
+nel senso che punti lontani in $\mathbb{R}^p$ siano il più
+lontano possibile nelle proiezioni su $T_1$, poi $T_2$,...... 
+La distanza tra i punti può essere misurata usando il teorema di Pitagora, distanza euclidea,
+e questa è la formula della varianza delle variabili $X_1,\dots,X_p$.     
+Vogliamo massimalizzare la varianza, perchè ad essa è associata l'informazione contenuta nei dati
+in esame.
+In definitiva vogliamo massimalizzare l'informazione ricavabile dagli oggetti in esama (varianza).
+    
+E' posssibile determinare una variabile latente $T_1$, che chiameremo *Prima Componente Principale*,
+in  modo tale che
+ 
+\begin{equation}
+Var (T_1)=\rm{Max}_{\it{T}}\it{Var(T)}
+\end{equation}
+al variare di tutte le direzioni possibili $T$ in $\mathbb{R}^p$.  
+Tra tutte le variabili latenti perpendicolari alla $T_1$ è possibile determinare una seconda
+variabile latente $T_2$, che chiameremo *Seconda Componente Principale* in modo tale che
+ 
+\begin{equation}
+Var (T_2)=\rm{Max}_{\it{T\perp T_1}}\it{Var(T)}
+\end{equation}
+ 
+Questo procedimento può essere iterato fino alla costruzione di $p$  componenti principali
+$T_1,T_2,\dots,T_p$.
+ 
+Per quanto visto nel Paragrafo \ref{par:VariabiliLatenti} abbiamo determinato la matrice $P$ 
+dei *loading*. La matrice degli *score* si ottiene 
+\begin{equation}\label{eq:Score}
+T=XP
+\end{equation}
+ 
+La procedura per determinare $P$ passa attraverso il calcolo degli autovalori 
+$\lambda_1,\dots,\lambda_p$ della matrice di covarianza (di correlazione nel caso in cui i dati
+fossero stati standardizzati)
+\begin{equation}
+Cov(X)=X^tX
+\end{equation}
+ 
+e dei relativi autovettori (le $p$ componenti principali).  
+   
+Uno dei risultati principali di questa costruzione è che nel sistema di coordinate delle componenti principali
+ 
+\begin{equation}\label{eq:Corr_diag}
+Cov(T)=\left(
+\begin{array}{cccc}
+\lambda_1  & \dots & 0 \\
+\vdots & \quad & \vdots \\
+0 & \dots & \lambda_m \\
+\end{array}
+\right),
+\quad \lambda_1 \geq \lambda_2 \geq \dots \geq \lambda_m
+\end{equation}
+ 
+Conseguenze  
+ 
+* $Var(T_i)=\lambda_i$   
+* varianza totale: $\lambda_1+\dots+\lambda_p$  
+* le componenti $T_1,T_2,\dots,T_p$ sono a indipendenti
 
 
 

@@ -12,10 +12,10 @@ bibliography: book.bib
 link-citations: yes
 colorlinks: yes
 favicon: Immagini/pca.ico
-cover-image: Immagini/pca.jpg
+cover-image: Immagini/pca.png
 site: bookdown::bookdown_site
 ---
 
 #  {.unnumbered}
 
-`r if (knitr:::is_html_output()) ' ![](Immagini/pca.jpg) '`
+`r if (knitr:::is_html_output()) ' ![](Immagini/pca.png) '`
